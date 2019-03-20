@@ -1,0 +1,58 @@
+﻿@model DeliverySite.Models.Manufacturer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Manufacturer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufacturerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufacturerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdressManufacturer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdressManufacturer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactNumberManufacurer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactNumberManufacurer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailManufacturer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailManufacturer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShereManufacturer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShereManufacturer)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

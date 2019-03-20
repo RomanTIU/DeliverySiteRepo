@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DeliverySite.Models.Manufacturer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ManufacturerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdressManufacturer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactNumberManufacurer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailManufacturer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShereManufacturer)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ManufacturerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdressManufacturer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactNumberManufacurer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailManufacturer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShereManufacturer)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
