@@ -9,7 +9,7 @@ namespace DeliverySite.Models
     public class Status
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         [DisplayName("Statutul comenzei")]
         public Colors ColorStatus  { get; set; }
 

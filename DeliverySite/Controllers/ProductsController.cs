@@ -12,12 +12,12 @@ namespace DeliverySite.Controllers
 {
     public class ProductsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Manufacturer);
+            var products = _db.Products.Include(p => p.Manufacturer);
             return View(products.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace DeliverySite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = _db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -37,10 +37,30 @@ namespace DeliverySite.Controllers
         }
 
         // GET: Products/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            var product = new Product();
+            if (id != null)
+            {
+                var a = _db.Products.Find(id);
+                if (a != null)
+                {
+                    product.ImagePath = a.ImagePath;
+                }
 
-            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "ManufacturerName");
+                try
+                {
+                    var img = _db.Products.Find(product.Id);
+                    if (img != null) product.ImagePath = "~/Content/Image" + img.ImagePath;
+                }
+                catch
+                {
+                    return View("Error");
+                }
+            }
+
+            ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName");
+
             return View();
         }
 
@@ -49,30 +69,30 @@ namespace DeliverySite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProductName,TimeToReady,Price,Title,ManufacturerID")] Product product, HttpPostedFileBase UploadImage)
+        public ActionResult Create([Bind(Include = "ID,ProductName,TimeToReady,Price,Title,ManufacturerID")] Product product, HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
             {
-                if (UploadImage != null)
+                if (uploadImage != null)
                 {
-                    if (UploadImage.ContentType == "image/jpg" || UploadImage.ContentType == "image/png "
-                                                               || UploadImage.ContentType == "image/jpeg" ||
-                                                               UploadImage.ContentType == "image/gif")
+                    if (uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/png "
+                                                               || uploadImage.ContentType == "image/jpeg" ||
+                                                               uploadImage.ContentType == "image/gif")
                     {
-                        UploadImage.SaveAs(Server.MapPath("/") + "/Content/Image/+" + UploadImage.FileName);
-                        product.ImagePath = UploadImage.FileName;
+                        uploadImage.SaveAs(Server.MapPath("/") + "/Content/Image/" + uploadImage.FileName);
+                        product.ImagePath = uploadImage.FileName;
                     }
                     else
                         return View();
                 }
                 else return View();
 
-                db.Products.Add(product);
-                db.SaveChanges();
+                _db.Products.Add(product);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerID);
+            ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerId);
             return View(product);
         }
 
@@ -83,12 +103,12 @@ namespace DeliverySite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = _db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerID);
+            ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerId);
             return View(product);
         }
 
@@ -101,11 +121,11 @@ namespace DeliverySite.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(product).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ManufacturerID = new SelectList(db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerID);
+            ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerId);
             return View(product);
         }
 
@@ -116,7 +136,7 @@ namespace DeliverySite.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Product product = _db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -129,9 +149,9 @@ namespace DeliverySite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
+            Product product = _db.Products.Find(id);
+            _db.Products.Remove(product);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -139,7 +159,7 @@ namespace DeliverySite.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

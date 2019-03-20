@@ -1,13 +1,13 @@
 ﻿@model DeliverySite.Models.Manufacturer
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Producatori";
 }
 
-<h2>Create</h2>
+<h2>Adauga producatori</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Manufacturers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -52,6 +52,13 @@
             <div class="col-md-10">
                 @Html.EnumDropDownListFor(model => model.ShereManufacturer, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ShereManufacturer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePathLoggo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="imageUpload" id="imageUpload"/>
             </div>
         </div>
 

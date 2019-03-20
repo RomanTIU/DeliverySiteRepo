@@ -50,12 +50,12 @@
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            <img src="~/Content/Image/@item.ImagePath" alt="@item.Title" width="50" height="50" /> @*<a href="~/Content/Image/@item.ImagePath"> @Html.DisplayFor(modelItem => item.ImagePath)</a>*@
+            <img src="~/Content/Image/@item.ImagePath" alt="@item.Title" width="50" height="50" />
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

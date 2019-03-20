@@ -11,7 +11,7 @@ namespace DeliverySite.Models
     public class DeliveryMan
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus numele")]
         [DisplayName("Numele omului de livrare")]
@@ -26,7 +26,7 @@ namespace DeliverySite.Models
         public string EmailDeliveryMan { get; set; }
 
         [DisplayName("Numarul comenzii")]
-        public int CommandID { get; set; }
+        public int CommandId { get; set; }
         
         
 

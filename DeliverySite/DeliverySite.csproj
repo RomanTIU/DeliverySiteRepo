@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Forms\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -194,21 +195,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903192042461_InitiateCreate.cs" />
-    <Compile Include="Migrations\201903192042461_InitiateCreate.Designer.cs">
-      <DependentUpon>201903192042461_InitiateCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903192119137_ChangeImagePath.cs" />
-    <Compile Include="Migrations\201903192119137_ChangeImagePath.Designer.cs">
-      <DependentUpon>201903192119137_ChangeImagePath.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903201105458_MinusImageByte.cs" />
-    <Compile Include="Migrations\201903201105458_MinusImageByte.Designer.cs">
-      <DependentUpon>201903201105458_MinusImageByte.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903201256005_New.cs" />
-    <Compile Include="Migrations\201903201256005_New.Designer.cs">
-      <DependentUpon>201903201256005_New.cs</DependentUpon>
+    <Compile Include="Migrations\201903201436577_InitiaCreate.cs" />
+    <Compile Include="Migrations\201903201436577_InitiaCreate.Designer.cs">
+      <DependentUpon>201903201436577_InitiaCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -228,7 +217,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Image\Burgher.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Forms\HomePage.aspx" />
@@ -284,16 +272,16 @@
     <Content Include="Views\RegisterViewModels\Details.cshtml" />
     <Content Include="Views\RegisterViewModels\Edit.cshtml" />
     <Content Include="Views\RegisterViewModels\Index.cshtml" />
-    <Content Include="Views\Manufacturers\Create.cshtml" />
-    <Content Include="Views\Manufacturers\Delete.cshtml" />
-    <Content Include="Views\Manufacturers\Details.cshtml" />
-    <Content Include="Views\Manufacturers\Edit.cshtml" />
-    <Content Include="Views\Manufacturers\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Manufacturers\Create.cshtml" />
+    <Content Include="Views\Manufacturers\Delete.cshtml" />
+    <Content Include="Views\Manufacturers\Details.cshtml" />
+    <Content Include="Views\Manufacturers\Edit.cshtml" />
+    <Content Include="Views\Manufacturers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -303,6 +291,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Manufacturers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -318,17 +307,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903192042461_InitiateCreate.resx">
-      <DependentUpon>201903192042461_InitiateCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903192119137_ChangeImagePath.resx">
-      <DependentUpon>201903192119137_ChangeImagePath.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903201105458_MinusImageByte.resx">
-      <DependentUpon>201903201105458_MinusImageByte.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903201256005_New.resx">
-      <DependentUpon>201903201256005_New.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903201436577_InitiaCreate.resx">
+      <DependentUpon>201903201436577_InitiaCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,10 +1,10 @@
 ﻿@model DeliverySite.Models.Manufacturer
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Editare";
 }
 
-<h2>Edit</h2>
+<h2>Editează</h2>
 
 
 @using (Html.BeginForm())
@@ -54,6 +54,13 @@
             <div class="col-md-10">
                 @Html.EnumDropDownListFor(model => model.ShereManufacturer, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ShereManufacturer, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePathLoggo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <img src="~/Content/Manufacturers/@Model.ImagePathLoggo" width="50" height="50"/>
             </div>
         </div>
 

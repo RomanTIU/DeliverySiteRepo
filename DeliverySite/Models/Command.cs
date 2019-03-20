@@ -10,19 +10,19 @@ namespace DeliverySite.Models
     public class Command
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Numele cumparatorului")]
-        public int ClientID { get; set; }
+        public int ClientId { get; set; }
 
         [DisplayName("Numele producatorului")]
-        public int ManufacturerID { get; set; }
+        public int ManufacturerId { get; set; }
 
         [DisplayName("Denumirea produsului")]
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
         [DisplayName("Statutul produsului")]
-        public int StatusID { get; set; }
+        public int StatusId { get; set; }
         [DisplayName("Suma spre achitare")]
         public int SumCommand { get; set; }
 

@@ -1,13 +1,13 @@
 ﻿@model DeliverySite.Models.Manufacturer
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalii";
 }
 
-<h2>Details</h2>
+<h2>Detalii</h2>
 
 <div>
-    <h4>Manufacturer</h4>
+    <h4>Producator</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -48,6 +48,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.ShereManufacturer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePathLoggo)
+        </dt>
+
+        <dd>
+            <img src="~/Content/Manufacturers/@Model.ImagePathLoggo" width="50" height="50"/>
         </dd>
 
     </dl>

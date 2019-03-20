@@ -12,7 +12,7 @@ namespace DeliverySite.Models
     {
         [Key]
         
-        public int ID { get; set; }
+        public int Id { get; set; }
 
        
 
@@ -32,11 +32,11 @@ namespace DeliverySite.Models
         [DisplayName("Titlul imaginei")]
         public string Title { get; set; }
 
-        [DisplayName("Calea spre imagine")]
+        [DisplayName("Imaginea")]
         public string ImagePath { get; set; }
 
         [DisplayName("Producatorul")]
-        public int ManufacturerID { get; set; }
+        public int ManufacturerId { get; set; }
 
 
         

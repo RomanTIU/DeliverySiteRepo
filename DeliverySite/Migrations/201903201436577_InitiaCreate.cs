@@ -3,7 +3,7 @@ namespace DeliverySite.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitiateCreate : DbMigration
+    public partial class InitiaCreate : DbMigration
     {
         public override void Up()
         {
@@ -11,72 +11,73 @@ namespace DeliverySite.Migrations
                 "dbo.Commands",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
-                        ClientID = c.Int(nullable: false),
-                        ManufacturerID = c.Int(nullable: false),
-                        ProductID = c.Int(nullable: false),
-                        StatusID = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        ClientId = c.Int(nullable: false),
+                        ManufacturerId = c.Int(nullable: false),
+                        ProductId = c.Int(nullable: false),
+                        StatusId = c.Int(nullable: false),
                         SumCommand = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Manufacturers", t => t.ManufacturerID, cascadeDelete: true)
-                .ForeignKey("dbo.Products", t => t.ProductID, cascadeDelete: true)
-                .ForeignKey("dbo.Status", t => t.StatusID, cascadeDelete: true)
-                .Index(t => t.ManufacturerID)
-                .Index(t => t.ProductID)
-                .Index(t => t.StatusID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Manufacturers", t => t.ManufacturerId, cascadeDelete: true)
+                .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
+                .ForeignKey("dbo.Status", t => t.StatusId, cascadeDelete: true)
+                .Index(t => t.ManufacturerId)
+                .Index(t => t.ProductId)
+                .Index(t => t.StatusId);
             
             CreateTable(
                 "dbo.Manufacturers",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         ManufacturerName = c.String(nullable: false),
                         AdressManufacturer = c.String(nullable: false),
                         ContactNumberManufacurer = c.Int(nullable: false),
                         EmailManufacturer = c.String(nullable: false),
                         ShereManufacturer = c.Int(nullable: false),
+                        ImagePathLoggo = c.String(),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Products",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         ProductName = c.String(nullable: false),
                         TimeToReady = c.Int(nullable: false),
                         Price = c.Int(nullable: false),
                         Title = c.String(nullable: false),
                         ImagePath = c.String(),
-                        ManufacturerID = c.Int(nullable: false),
+                        ManufacturerId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Manufacturers", t => t.ManufacturerID, cascadeDelete: false)
-                .Index(t => t.ManufacturerID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Manufacturers", t => t.ManufacturerId, cascadeDelete: false)
+                .Index(t => t.ManufacturerId);
             
             CreateTable(
                 "dbo.Status",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         ColorStatus = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.DeliveryMen",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         DeliveryManName = c.String(nullable: false),
                         ContactNumberDeliveryMan = c.Int(nullable: false),
                         EmailDeliveryMan = c.String(nullable: false),
-                        CommandID = c.Int(nullable: false),
+                        CommandId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Commands", t => t.CommandID, cascadeDelete: true)
-                .Index(t => t.CommandID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Commands", t => t.CommandId, cascadeDelete: true)
+                .Index(t => t.CommandId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -155,22 +156,22 @@ namespace DeliverySite.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.DeliveryMen", "CommandID", "dbo.Commands");
-            DropForeignKey("dbo.Commands", "StatusID", "dbo.Status");
-            DropForeignKey("dbo.Products", "ManufacturerID", "dbo.Manufacturers");
-            DropForeignKey("dbo.Commands", "ProductID", "dbo.Products");
-            DropForeignKey("dbo.Commands", "ManufacturerID", "dbo.Manufacturers");
+            DropForeignKey("dbo.DeliveryMen", "CommandId", "dbo.Commands");
+            DropForeignKey("dbo.Commands", "StatusId", "dbo.Status");
+            DropForeignKey("dbo.Products", "ManufacturerId", "dbo.Manufacturers");
+            DropForeignKey("dbo.Commands", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.Commands", "ManufacturerId", "dbo.Manufacturers");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.DeliveryMen", new[] { "CommandID" });
-            DropIndex("dbo.Products", new[] { "ManufacturerID" });
-            DropIndex("dbo.Commands", new[] { "StatusID" });
-            DropIndex("dbo.Commands", new[] { "ProductID" });
-            DropIndex("dbo.Commands", new[] { "ManufacturerID" });
+            DropIndex("dbo.DeliveryMen", new[] { "CommandId" });
+            DropIndex("dbo.Products", new[] { "ManufacturerId" });
+            DropIndex("dbo.Commands", new[] { "StatusId" });
+            DropIndex("dbo.Commands", new[] { "ProductId" });
+            DropIndex("dbo.Commands", new[] { "ManufacturerId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
