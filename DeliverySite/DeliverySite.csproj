@@ -46,6 +46,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -98,9 +101,6 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Forms\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -199,6 +200,22 @@
     <Compile Include="Migrations\201903201436577_InitiaCreate.Designer.cs">
       <DependentUpon>201903201436577_InitiaCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903211346309_roles.cs" />
+    <Compile Include="Migrations\201903211346309_roles.designer.cs">
+      <DependentUpon>201903211346309_roles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903211410003_role.cs" />
+    <Compile Include="Migrations\201903211410003_role.Designer.cs">
+      <DependentUpon>201903211410003_role.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903211415302_AddRole.cs" />
+    <Compile Include="Migrations\201903211415302_AddRole.Designer.cs">
+      <DependentUpon>201903211415302_AddRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903211545038_UserField.cs" />
+    <Compile Include="Migrations\201903211545038_UserField.Designer.cs">
+      <DependentUpon>201903211545038_UserField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Command.cs" />
@@ -208,6 +225,7 @@
     <Compile Include="Models\DeliveryMan.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\RoleViewModel.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -282,6 +300,11 @@
     <Content Include="Views\Manufacturers\Details.cshtml" />
     <Content Include="Views\Manufacturers\Edit.cshtml" />
     <Content Include="Views\Manufacturers\Index.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Role\Details.cshtml" />
+    <Content Include="Views\Role\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -309,6 +332,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903201436577_InitiaCreate.resx">
       <DependentUpon>201903201436577_InitiaCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903211346309_roles.resx">
+      <DependentUpon>201903211346309_roles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903211410003_role.resx">
+      <DependentUpon>201903211410003_role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903211415302_AddRole.resx">
+      <DependentUpon>201903211415302_AddRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903211545038_UserField.resx">
+      <DependentUpon>201903211545038_UserField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

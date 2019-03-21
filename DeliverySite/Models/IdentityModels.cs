@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -19,6 +20,13 @@ namespace DeliverySite.Models
             return userIdentity;
         }
     }
+
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base() { }
+
+        public  ApplicationRole(string roleName): base(roleName) { }
+    } 
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -43,5 +51,7 @@ namespace DeliverySite.Models
         {
             return new ApplicationDbContext();
         }
+
+        
     }
 }

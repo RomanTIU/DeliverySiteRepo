@@ -38,19 +38,19 @@ namespace DeliverySite.Controllers
         // GET: Manufacturers/Create
         public ActionResult Create(int? id)
         {
-            var manufacturer = new Manufacturer();
+            var manufacturerCreate = new Manufacturer();
             if (id != null)
             {
                 var a = db.Manufacturers.Find(id);
                 if (a != null)
                 {
-                    manufacturer.ImagePathLoggo = a.ImagePathLoggo;
+                    manufacturerCreate.ImagePathLoggo = a.ImagePathLoggo;
                 }
 
                 try
                 {
-                    var img = db.Manufacturers.Find(manufacturer.Id);
-                    if (img != null) manufacturer.ImagePathLoggo = "~/Content/Manufacturers" + img.ImagePathLoggo;
+                    var img = db.Manufacturers.Find(manufacturerCreate.Id);
+                    if (img != null) manufacturerCreate.ImagePathLoggo = "~/Content/Manufacturers" + img.ImagePathLoggo;
                 }
                 catch
                 {
@@ -91,16 +91,68 @@ namespace DeliverySite.Controllers
             return View(manufacturer);
         }
 
+        // GET: Manufacturers/Edit/5
+        public ActionResult Edit(int? id)
+        {
 
+            var manufacturerEdit = new Manufacturer();
+            if (id != null)
+            {
+                var a = db.Manufacturers.Find(id);
+                if (a != null)
+                {
+                    manufacturerEdit.ImagePathLoggo = a.ImagePathLoggo;
+                }
+
+                try
+                {
+                    var img = db.Manufacturers.Find(manufacturerEdit.Id);
+                    if (img != null) manufacturerEdit.ImagePathLoggo = "~/Content/Manufacturers" + img.ImagePathLoggo;
+                }
+                catch
+                {
+                    return View("Error");
+                }
+            }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Manufacturer manufacturer = db.Manufacturers.Find(id);
+            if (manufacturer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(manufacturer);
+        }
         // POST: Manufacturers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ManufacturerName,AdressManufacturer,ContactNumberManufacurer,EmailManufacturer,ShereManufacturer,ImagePathLoggo")] Manufacturer manufacturer)
+        public ActionResult Edit([Bind(Include = "Id,ManufacturerName,AdressManufacturer,ContactNumberManufacurer,EmailManufacturer,ShereManufacturer,ImagePathLoggo")] Manufacturer manufacturer,HttpPostedFileBase imageUpload)
         {
             if (ModelState.IsValid)
             {
+                if (imageUpload != null)
+                {
+                    if (imageUpload.ContentType == "image/jpg" ||
+                        imageUpload.ContentType == "image/png" || 
+                        imageUpload.ContentType == "image/jpeg"||
+                        imageUpload.ContentType == "image/gif")
+                    {
+                        imageUpload.SaveAs(Server.MapPath("/") + "/Content/Manufacturers/" + imageUpload.FileName);
+                        manufacturer.ImagePathLoggo = imageUpload.FileName;
+                    }
+                    else
+                        return View();
+                }
+                else return View();
+
+
+
+
                 db.Entry(manufacturer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -66,49 +66,49 @@ namespace DeliverySite.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-        //[Key]
-        //public int ID { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus numele")]
-        //[DisplayName("Numele")]
-        //public string Name { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus adresa")]
-        //[DisplayName("Adresa")]
-        //public string Adress { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus numarul")]
-        //[DisplayName("Numarul de telefon")]
-        //public int NumberCLient { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus email")]
-        //[DisplayName("Email")]
+        //[Required]
+        //[EmailAddress]
+        //[Display(Name = "Email")]
         //public string Email { get; set; }
 
-        //[DisplayName("Parola")]
+        //[Required]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         //[DataType(DataType.Password)]
+        //[Display(Name = "Password")]
         //public string Password { get; set; }
 
         //[DataType(DataType.Password)]
-        //[DisplayName("Confirma parola")]
-        //[Compare("Password")]
+        //[Display(Name = "Confirm password")]
+        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         //public string ConfirmPassword { get; set; }
+
+        [Key]
+        public int ID { get; set; }
+
+        [Required(ErrorMessage = "Nu ati introdus numele")]
+        [DisplayName("Numele")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Nu ati introdus adresa")]
+        [DisplayName("Adresa")]
+        public string Adress { get; set; }
+
+        [Required(ErrorMessage = "Nu ati introdus numarul")]
+        [DisplayName("Numarul de telefon")]
+        public int NumberCLient { get; set; }
+
+        [Required(ErrorMessage = "Nu ati introdus email")]
+        [DisplayName("Email")]
+        public string Email { get; set; }
+
+        [DisplayName("Parola")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [DisplayName("Confirma parola")]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
 
     }
 

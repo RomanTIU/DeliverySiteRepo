@@ -39,19 +39,19 @@ namespace DeliverySite.Controllers
         // GET: Products/Create
         public ActionResult Create(int? id)
         {
-            var product = new Product();
+            var productCreate = new Product();
             if (id != null)
             {
                 var a = _db.Products.Find(id);
                 if (a != null)
                 {
-                    product.ImagePath = a.ImagePath;
+                    productCreate.ImagePath = a.ImagePath;
                 }
 
                 try
                 {
-                    var img = _db.Products.Find(product.Id);
-                    if (img != null) product.ImagePath = "~/Content/Image" + img.ImagePath;
+                    var img = _db.Products.Find(productCreate.Id);
+                    if (img != null) productCreate.ImagePath = "~/Content/Image" + img.ImagePath;
                 }
                 catch
                 {
@@ -75,9 +75,10 @@ namespace DeliverySite.Controllers
             {
                 if (uploadImage != null)
                 {
-                    if (uploadImage.ContentType == "image/jpg" || uploadImage.ContentType == "image/png "
-                                                               || uploadImage.ContentType == "image/jpeg" ||
-                                                               uploadImage.ContentType == "image/gif")
+                    if (uploadImage.ContentType == "image/jpg" ||
+                        uploadImage.ContentType == "image/png" || 
+                        uploadImage.ContentType == "image/jpeg"||
+                        uploadImage.ContentType == "image/gif")
                     {
                         uploadImage.SaveAs(Server.MapPath("/") + "/Content/Image/" + uploadImage.FileName);
                         product.ImagePath = uploadImage.FileName;
@@ -99,6 +100,27 @@ namespace DeliverySite.Controllers
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
+
+
+            var productEdit = new Product();
+            if (id != null)
+            {
+                var a = _db.Products.Find(id);
+                if (a != null)
+                {
+                    productEdit.ImagePath = a.ImagePath;
+                }
+
+                try
+                {
+                    var img = _db.Products.Find(productEdit.Id);
+                    if (img != null) productEdit.ImagePath = "~/Content/Image" + img.ImagePath;
+                }
+                catch
+                {
+                    return View("Error");
+                }
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -117,10 +139,28 @@ namespace DeliverySite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProductName,TimeToReady,Price,Title,ImagePath,ManufacturerID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID,ProductName,TimeToReady,Price,Title,ImagePath,ManufacturerID")] Product product,HttpPostedFileBase uploadImage)
         {
             if (ModelState.IsValid)
             {
+                if (ModelState.IsValid)
+                {
+                    if (uploadImage != null)
+                    {
+                        if (uploadImage.ContentType == "image/jpg" || 
+                            uploadImage.ContentType == "image/png" || 
+                            uploadImage.ContentType == "image/jpeg"||
+                            uploadImage.ContentType == "image/gif")
+                        {
+                            uploadImage.SaveAs(Server.MapPath("/") + "/Content/Image/" + uploadImage.FileName);
+                            product.ImagePath = uploadImage.FileName;
+                        }
+                        else
+                            return View();
+                    }
+                    else return View();
+                }
+
                 _db.Entry(product).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
