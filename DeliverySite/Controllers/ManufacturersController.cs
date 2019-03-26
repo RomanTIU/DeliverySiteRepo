@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using DeliverySite.Models;
 
 namespace DeliverySite.Controllers
@@ -64,6 +65,7 @@ namespace DeliverySite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+       // [Authorize (Roles ="Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ManufacturerName,AdressManufacturer,ContactNumberManufacurer,EmailManufacturer,ShereManufacturer")] Manufacturer manufacturer, HttpPostedFileBase imageUpload)
         {
@@ -71,9 +73,10 @@ namespace DeliverySite.Controllers
             {
                 if (imageUpload != null)
                 {
-                    if (imageUpload.ContentType == "image/jpg" || imageUpload.ContentType == "image/png "
-                                                               || imageUpload.ContentType == "image/jpeg" ||
-                                                               imageUpload.ContentType == "image/gif")
+                    if (imageUpload.ContentType == "image/jpg" ||
+                        imageUpload.ContentType == "image/png" || 
+                        imageUpload.ContentType == "image/jpeg"||
+                        imageUpload.ContentType == "image/gif")
                     {
                         imageUpload.SaveAs(Server.MapPath("/") + "/Content/Manufacturers/" + imageUpload.FileName);
                         manufacturer.ImagePathLoggo = imageUpload.FileName;

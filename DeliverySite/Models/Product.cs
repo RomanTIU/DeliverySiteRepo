@@ -17,7 +17,7 @@ namespace DeliverySite.Models
        
 
         [Required(ErrorMessage = "Nu ati introdus numele produsului ")]
-        [DisplayName ("Denumirea produsului")]
+        [DisplayName ("Produsul")]
         public string ProductName { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus timpul de pregatire")]

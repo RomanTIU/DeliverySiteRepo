@@ -24,15 +24,8 @@ namespace DeliverySite.Models
         [Required(ErrorMessage = "Nu ati introdus emailu")]
         [DisplayName("Adresa postala")]
         public string EmailDeliveryMan { get; set; }
-
-        [DisplayName("Numarul comenzii")]
-        public int CommandId { get; set; }
         
-        
-
-        
-
-        public Command Command { get; set; }
+        ICollection<Command> Commands { get; set; }
 
 
     }

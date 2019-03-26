@@ -3,7 +3,7 @@ namespace DeliverySite.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitiaCreate : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -85,6 +85,7 @@ namespace DeliverySite.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false, maxLength: 256),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
@@ -107,7 +108,6 @@ namespace DeliverySite.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Password = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),

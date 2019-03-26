@@ -7,7 +7,7 @@ namespace DeliverySite.Models
 {
     public class RoleViewModel
     {
-        public RoleViewModel() { }
+        public  RoleViewModel(){}
 
         public RoleViewModel(ApplicationRole role)
         {
