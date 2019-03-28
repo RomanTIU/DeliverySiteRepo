@@ -38,9 +38,5 @@ namespace DeliverySite.Models
         public Status Status { get; set; }
         public DeliveryMan DeliveryMan { get; set; }
 
-
-
-
-
     }
 }

@@ -3,16 +3,16 @@ namespace DeliverySite.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddAUR : DbMigration
+    public partial class New_Try : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUserRoles", "Discriminator", c => c.String(nullable: false, maxLength: 128));
+            DropColumn("dbo.AspNetUserRoles", "Discriminator");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.AspNetUserRoles", "Discriminator");
+            AddColumn("dbo.AspNetUserRoles", "Discriminator", c => c.String(nullable: false, maxLength: 128));
         }
     }
 }

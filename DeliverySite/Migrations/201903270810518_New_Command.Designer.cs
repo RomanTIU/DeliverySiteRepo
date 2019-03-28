@@ -7,13 +7,13 @@ namespace DeliverySite.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FixCommand : IMigrationMetadata
+    public sealed partial class New_Command : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FixCommand));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(New_Command));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903261536178_FixCommand"; }
+            get { return "201903270810518_New_Command"; }
         }
         
         string IMigrationMetadata.Source

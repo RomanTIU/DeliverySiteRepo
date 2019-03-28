@@ -7,13 +7,13 @@ namespace DeliverySite.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddAUR : IMigrationMetadata
+    public sealed partial class New_Try : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddAUR));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(New_Try));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903251531441_AddAUR"; }
+            get { return "201903270803403_New_Try"; }
         }
         
         string IMigrationMetadata.Source

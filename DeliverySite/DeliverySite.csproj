@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -112,12 +118,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -171,12 +171,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CommandsController.cs" />
     <Compile Include="Controllers\DeliveryMenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManufacturersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\ShippingCartController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Forms\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -195,34 +198,35 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903251258130_InitialCreate.cs" />
-    <Compile Include="Migrations\201903251258130_InitialCreate.Designer.cs">
-      <DependentUpon>201903251258130_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201903262048025_InitiaCreate.cs" />
+    <Compile Include="Migrations\201903262048025_InitiaCreate.Designer.cs">
+      <DependentUpon>201903262048025_InitiaCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903251432570_Hello1.cs" />
-    <Compile Include="Migrations\201903251432570_Hello1.Designer.cs">
-      <DependentUpon>201903251432570_Hello1.cs</DependentUpon>
+    <Compile Include="Migrations\201903270803403_New_Try.cs" />
+    <Compile Include="Migrations\201903270803403_New_Try.Designer.cs">
+      <DependentUpon>201903270803403_New_Try.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903251439214_AddClientComand.cs" />
-    <Compile Include="Migrations\201903251439214_AddClientComand.Designer.cs">
-      <DependentUpon>201903251439214_AddClientComand.cs</DependentUpon>
+    <Compile Include="Migrations\201903270810518_New_Command.cs" />
+    <Compile Include="Migrations\201903270810518_New_Command.Designer.cs">
+      <DependentUpon>201903270810518_New_Command.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903251531441_AddAUR.cs" />
-    <Compile Include="Migrations\201903251531441_AddAUR.Designer.cs">
-      <DependentUpon>201903251531441_AddAUR.cs</DependentUpon>
+    <Compile Include="Migrations\201903271414264_n.cs" />
+    <Compile Include="Migrations\201903271414264_n.Designer.cs">
+      <DependentUpon>201903271414264_n.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903261536178_FixCommand.cs" />
-    <Compile Include="Migrations\201903261536178_FixCommand.Designer.cs">
-      <DependentUpon>201903261536178_FixCommand.cs</DependentUpon>
+    <Compile Include="Migrations\201903271416165_Command.cs" />
+    <Compile Include="Migrations\201903271416165_Command.Designer.cs">
+      <DependentUpon>201903271416165_Command.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903262027080_maybe.cs" />
-    <Compile Include="Migrations\201903262027080_maybe.Designer.cs">
-      <DependentUpon>201903262027080_maybe.cs</DependentUpon>
+    <Compile Include="Migrations\201903281437115_MinusTitle.cs" />
+    <Compile Include="Migrations\201903281437115_MinusTitle.Designer.cs">
+      <DependentUpon>201903281437115_MinusTitle.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddRoleToUser.cs" />
     <Compile Include="Models\AssignRolesToUser.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Command.cs" />
     <Compile Include="Models\DeliverySiteContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -324,6 +328,12 @@
     <Content Include="Views\RegisterViewModels\Details.cshtml" />
     <Content Include="Views\RegisterViewModels\Edit.cshtml" />
     <Content Include="Views\RegisterViewModels\Index.cshtml" />
+    <Content Include="Views\Commands\Create.cshtml" />
+    <Content Include="Views\Commands\Delete.cshtml" />
+    <Content Include="Views\Commands\Details.cshtml" />
+    <Content Include="Views\Commands\Edit.cshtml" />
+    <Content Include="Views\Commands\Index.cshtml" />
+    <Content Include="Views\ShippingCart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -335,6 +345,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Image\" />
     <Folder Include="Content\Manufacturers\" />
+    <Folder Include="Views\ShoppingCart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -350,23 +361,23 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903251258130_InitialCreate.resx">
-      <DependentUpon>201903251258130_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903262048025_InitiaCreate.resx">
+      <DependentUpon>201903262048025_InitiaCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903251432570_Hello1.resx">
-      <DependentUpon>201903251432570_Hello1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903270803403_New_Try.resx">
+      <DependentUpon>201903270803403_New_Try.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903251439214_AddClientComand.resx">
-      <DependentUpon>201903251439214_AddClientComand.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903270810518_New_Command.resx">
+      <DependentUpon>201903270810518_New_Command.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903251531441_AddAUR.resx">
-      <DependentUpon>201903251531441_AddAUR.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903271414264_n.resx">
+      <DependentUpon>201903271414264_n.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903261536178_FixCommand.resx">
-      <DependentUpon>201903261536178_FixCommand.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903271416165_Command.resx">
+      <DependentUpon>201903271416165_Command.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903262027080_maybe.resx">
-      <DependentUpon>201903262027080_maybe.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903281437115_MinusTitle.resx">
+      <DependentUpon>201903281437115_MinusTitle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

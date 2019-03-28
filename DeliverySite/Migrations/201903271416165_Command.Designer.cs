@@ -7,13 +7,13 @@ namespace DeliverySite.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddClientComand : IMigrationMetadata
+    public sealed partial class Command : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddClientComand));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Command));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903251439214_AddClientComand"; }
+            get { return "201903271416165_Command"; }
         }
         
         string IMigrationMetadata.Source

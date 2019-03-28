@@ -28,19 +28,6 @@ namespace DeliverySite.Models
         public  ApplicationRole(string roleName): base(roleName) { }
     }
 
-    public class ApplicationUserRole : IdentityUserRole
-    {
-        public ApplicationUserRole() : base()
-        {
-        }
-
-        public ApplicationUserRole(string UserId, string RoleId) : base() { }
-        
-
-        //public string UserId { get; set; }
-        //public string RoleID { get; set; }
-    }
-
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

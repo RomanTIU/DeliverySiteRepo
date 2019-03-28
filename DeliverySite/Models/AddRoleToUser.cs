@@ -5,19 +5,19 @@ using System.Web;
 
 namespace DeliverySite.Models
 {
-    public class AddRoleToUser
-    {
-        public AddRoleToUser() { }
+    //public class AddRoleToUser
+    //{
+    //    public AddRoleToUser() { }
 
-        public AddRoleToUser(ApplicationUserRole role)
-        {
-            UserId = role.UserId;
+    //    public AddRoleToUser(ApplicationUserRole role)
+    //    {
+    //        UserId = role.UserId;
 
-            RoleId = role.RoleId;
-        }
+    //        RoleId = role.RoleId;
+    //    }
 
-        public string UserId { get; set; }
+    //    public string UserId { get; set; }
 
-        public string RoleId { get; set; }
-    }
+    //    public string RoleId { get; set; }
+    //}
 }
