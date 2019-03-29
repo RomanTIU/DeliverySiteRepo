@@ -50,10 +50,10 @@ namespace DeliverySite.Models
 
     public class LoginViewModel
     {
+       
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Numele")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -66,6 +66,22 @@ namespace DeliverySite.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Nume unic")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Prenumele")]
+        public string SurName { get; set; }
+
+        [Required]
+        [Display(Name = "Numarul de telefon")]
+        public int PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Adresa")]
+        public string Address { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -82,34 +98,10 @@ namespace DeliverySite.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        //[Key]
-        //public int ID { get; set; }
+        [Display(Name = "Rolul")]
+        public  string RoleName { get; set; }
 
-        //[Required(ErrorMessage = "Nu ati introdus numele")]
-        //[DisplayName("Numele")]
-        //public string Name { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus adresa")]
-        //[DisplayName("Adresa")]
-        //public string Adress { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus numarul")]
-        //[DisplayName("Numarul de telefon")]
-        //public int NumberCLient { get; set; }
-
-        //[Required(ErrorMessage = "Nu ati introdus email")]
-        //[DisplayName("Email")]
-        //public string Email { get; set; }
-
-        //[DisplayName("Parola")]
-        //[DataType(DataType.Password)]
-        //public string Password { get; set; }
-
-        //[DataType(DataType.Password)]
-        //[DisplayName("Confirma parola")]
-        //[Compare("Password")]
-        //public string ConfirmPassword { get; set; }
-
+       
     }
 
     public class ResetPasswordViewModel

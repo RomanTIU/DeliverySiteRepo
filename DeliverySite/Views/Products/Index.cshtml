@@ -1,63 +1,39 @@
 ﻿@model IEnumerable<DeliverySite.Models.Product>
 
+
+
 @{
+
     ViewBag.Title = "Produse";
 }
+<style type="text/css">
+    img {
+        border-radius: 4px;
+    }
+
+     
+</style>
 
 <h2>Prudsele</h2>
 
 <p>
     @Html.ActionLink("Adauga produs", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer.ManufacturerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeToReady)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Manufacturer.ManufacturerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeToReady)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            <img src="~/Content/Image/@item.ImagePath" alt="@item.Title" width="50" height="50" />
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@{
+    foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="@Url.Content("~/Content/Image/"+item.ImagePath)" alt="...">
+                    <div class="caption">
+                        <h3>@item.ProductName</h3>
+                        <h4>Timpul pentru pregatire @item.TimeToReady minute</h4>
+                        <h4>Pretul @item.Price lei</h4>
+                        <p><a href="http://localhost:63960/ShippingCart/OrderNow/@item.Id" class="btn btn-primary" role="button">Adauga in cos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 }
-
-</table>

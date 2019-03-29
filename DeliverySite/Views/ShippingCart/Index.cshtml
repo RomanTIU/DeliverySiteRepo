@@ -1,0 +1,95 @@
+﻿@using DeliverySite.Controllers
+@using DeliverySite.Models
+@model IEnumerable<DeliverySite.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    img {
+        border-radius: 4px;
+
+    }
+    .quantity {
+        display: inline-block; }
+    
+     
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">Coșul</div>
+    
+
+<table class="table">
+    <tr>
+        <th style="opacity:0">
+            Imaginea
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            Prețul
+        </th>
+        <th>
+            Cantitatea
+        </th>
+        <th>
+            Suma totala
+        </th>
+
+    </tr>
+    @foreach (var cart in (List<Cart>)Session["Cart"])
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content("~/Content/Image/"+cart.Product.ImagePath)" width="50" height="50"class="img-circle" />
+            </td>
+            <td>
+                <div class="Align">
+                    @cart.Product.ProductName
+                </div>
+            </td>
+            <td>
+                @cart.Product.Price
+            </td>
+            <td>
+                <div class="def-number-input number-input">
+                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                    
+                    <input class="quantity" min="0" name="quantity" value="@cart.Quantity" type="number">
+                    
+                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+
+            </td>
+            <td>
+                @(cart.TotalPrice = cart.Product.Price * cart.Quantity)
+            </td>
+            <td>
+                @Html.ActionLink("Sterge", "Delete", "ShippingCart", new {id = cart.Product.Id},
+                    new {onclick = "return confirm('Esti sigur in asta')"})
+            </td>
+
+        </tr>
+
+    }
+    <tr>
+        <td colspan="3">Spre achitare</td>
+        <td>
+            @{
+                List<Cart> temp = (List<Cart>)Session["Cart"];
+                var total = temp.Sum(x => x.Quantity * x.Product.Price);
+                @total
+            }
+        </td>
+
+    </tr>
+
+</table>
+</div>
+    <br />
+    @Html.ActionLink("Continua cumparaturie", "Index", "Products")
