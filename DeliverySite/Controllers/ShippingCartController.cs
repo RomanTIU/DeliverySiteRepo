@@ -37,10 +37,47 @@ namespace DeliverySite.Controllers
             else
             {
                 List<Cart> listCart = (List<Cart>) Session[strCart];
-                listCart.Add(new Cart(_db.Products.Find(id),1));
+                int check = IsExestCheck(id);
+                if (check == -1)
+                {
+                    listCart.Add(new Cart(_db.Products.Find(id),1));
+                }
+                else
+                {
+                    listCart[check].Quantity++;
+                }
+                
                 Session[strCart] = listCart;
             }
             return View("Index");
         }
+
+        private int IsExestCheck(int? id)
+        {
+            List<Cart> listCart = (List<Cart>)Session[strCart];
+            for (int i = 0; i < listCart.Count; i++)
+            {
+                if (listCart[i].Product.Id == id)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            int check = IsExestCheck(id);
+            List<Cart> listCart = (List<Cart>)Session[strCart];
+            listCart.RemoveAt(check);
+            return View("Index");
+        }
+
     }
 }

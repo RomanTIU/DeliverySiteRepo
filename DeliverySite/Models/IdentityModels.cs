@@ -44,6 +44,8 @@ namespace DeliverySite.Models
 
         public DbSet<Status> Statuses { get; set; }
 
+        public DbSet<Cart> Carts { get; set; }
+
         
 
        
