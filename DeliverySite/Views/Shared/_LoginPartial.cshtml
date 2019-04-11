@@ -1,32 +1,42 @@
 ﻿@using Microsoft.AspNet.Identity
+
+
+
 @if (Request.IsAuthenticated) 
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar navbar-expand-sm  mr-auto" }))
     {
     @Html.AntiForgeryToken()
 
 
+      
 
-
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        @Html.ActionLink("Salut " + User.Identity.Name, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+<ul class="nav navbar-nav mr-auto navbar-expand-sm">
+    <li class="nav-item">
+        <a class="nav-link" href="http://localhost:63960/home/about">Salut @User.Identity.Name</a>
     </li>
-
-    <li>@Html.ActionLink("Adauga produs", "Create", "Products", routeValues: null, htmlAttributes: new { id = "" })</li>
-    <li>@Html.ActionLink("Adauga producator", "Create", "Manufacturers", routeValues: null, htmlAttributes: new { id = "" })</li>
-    <li>@Html.ActionLink("Modifica rolurile", "Create", "Role", routeValues: null, htmlAttributes: new { id = "" })</li>
-    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    @if (User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost:63960/products/create">Adauga produs</a></li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost:63960/home/about">Adauga producator</a></li>
+    }
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </li>
 
 </ul>
     }
 }
 else
 {
-<ul class="nav navbar-nav navbar-right">
-    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-    <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    
-
+<ul class="nav navbar-nav navbar-expand-sm mr-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="http://localhost:63960/Account/Login">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="http://localhost:63960/Account/Register">Registrare</a>
+    </li>
 </ul>
 }

@@ -1,15 +1,16 @@
 ﻿@model DeliverySite.Models.Command
 
 @{
+    
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Command</h4>
         <hr />
@@ -47,14 +48,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DeliveryManId, "DeliveryManId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("DeliveryManId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.DeliveryManId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.SumCommand, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SumCommand, new { htmlAttributes = new { @class = "form-control" } })
@@ -64,7 +57,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-secondary" />
             </div>
         </div>
     </div>
@@ -73,3 +66,8 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    $('select').selectpicker();
+
+</script>

@@ -13,7 +13,8 @@ namespace DeliverySite.Controllers
         private ApplicationDbContext _db = new ApplicationDbContext();
 
         private string strCart = "Cart";
-        // GET: ShippingCart
+        
+       // GET: ShippingCart
         public ActionResult Index()
         {
             return View();
@@ -79,5 +80,26 @@ namespace DeliverySite.Controllers
             return View("Index");
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Quantity,TotalPrice,Product")] Cart cart)
+        {
+            if (ModelState.IsValid)
+            {
+
+
+
+                _db.Carts.Add(cart);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(cart);
+        }
     }
 }

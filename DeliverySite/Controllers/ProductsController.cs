@@ -42,8 +42,8 @@ namespace DeliverySite.Controllers
             var products = _db.Products.Include(p => p.Manufacturer);
             return View(products.ToList());
         }
-
         // GET: Products/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,8 +57,8 @@ namespace DeliverySite.Controllers
             }
             return View(product);
         }
-
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(int? id)
         {
             var productCreate = new Product();
@@ -90,7 +90,7 @@ namespace DeliverySite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-       // [Authorize (Roles = "Admin")]
+        [Authorize (Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ProductName,TimeToReady,Price,Title,ManufacturerID")] Product product, HttpPostedFileBase uploadImage)
         {
@@ -119,8 +119,8 @@ namespace DeliverySite.Controllers
             ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerId);
             return View(product);
         }
-
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
 
@@ -161,6 +161,7 @@ namespace DeliverySite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ProductName,TimeToReady,Price,Title,ImagePath,ManufacturerID")] Product product,HttpPostedFileBase uploadImage)
         {
@@ -191,8 +192,8 @@ namespace DeliverySite.Controllers
             ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerId);
             return View(product);
         }
-
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -210,6 +211,7 @@ namespace DeliverySite.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = _db.Products.Find(id);
