@@ -5,22 +5,26 @@
 @{
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     ViewBag.Title = "Index";
+    int _Quantity = 0;
     int id = 0;
-    int value = 0;
+    int totalPrice = 0;
+    string SumId = "";
 }
+<script src="~/Scripts/jquery-3.3.1.js"></script>
 <style type="text/css">
     img {
-        border-radius:4px;
+        border-radius: 4px;
     }
 
     .quantity {
-        display: inline-block;}
-    .divider{
-        width:5px;
-        height:auto;
-        display:inline-block;
+        display: inline-block;
     }
-    
+
+    .divider {
+        width: 5px;
+        height: auto;
+        display: inline-block;
+    }
 </style>
 <div class="card-header">
     <div class="card-header">Coșul</div>
@@ -47,37 +51,43 @@
         {
             <tr>
                 <td>
-                    <img src="@Url.Content("~/Content/Image/"+cart.Product.ImagePath)" width="50" height="50" style="border-radius: 50%" />
+                    <img src="@Url.Content("~/Content/Image/" + cart.Product.ImagePath)" width="50" height="50" style="border-radius: 50%" />
                 </td>
                 <td>
-                    
-                        @cart.Product.ProductName
-                    
+
+                    @cart.Product.ProductName
+
                 </td>
                 <td>
-                        @cart.Product.Price lei
+                    <div id="productPrice">
+                        @cart.Product.Price
+                    </div>lei
                 </td>
                 <td>
                     <div>
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus" style="border-radius: 8px; background-color: azure">
+                        <button  class="minus" id="minus" style="border-radius: 8px; background-color: azure">
                             <img src="~/Content/Buttons/minus.png" width="10" height="10">
                         </button>
 
 
-                        <input class="quantity" min="0" name="quantity" value="@cart.Quantity" type="number" style="width: 50px">
+                        <input class="quantity" id="quantity" min="0" name="quantity" value="@cart.Quantity" type="number" style="width: 50px">
 
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus" style="border-radius: 8px;background-color: azure">
+                        <button class="plus" id="plus" style="border-radius: 8px;background-color: azure">
                             <img src="~/Content/Buttons/plus.png" width="10" height="10">
                         </button>
+                        @{_Quantity = cart.Quantity; id = cart.Product.Id;}
+
                         <div class="divider"></div>
                         <button style="width: 30px; height: 30px;align-content: center">
-                            <img src="~/Content/Buttons/Confirm.png" width="20" height="20"/>
+                            <img src="~/Content/Buttons/Confirm.png" width="20" height="20" />
                         </button>
                     </div>
                 </td>
                 <td>
-                    @(cart.TotalPrice = cart.Product.Price * cart.Quantity) lei
-                    
+                    <div id="sum"> @(cart.Product.Price * _Quantity) lei</div>
+
+                   
+
                     <button type="button" class="close" aria-label="Close">
                         <a href="http://localhost:63960/Carts/Deletecart/@cart.Product.Id" aria-hidden="true">&times;</a>
                     </button>
@@ -85,39 +95,51 @@
 
             </tr>
 
-        }
+                            }
         <tr>
             <td colspan="3">Spre achitare</td>
             <td>
                 @{
                     List<Cart> temp = (List<Cart>)Session["Cart"];
                     var total = temp.Sum(x => x.Quantity * x.Product.Price);
-                    @total 
+                    @total
                 }
-              lei
-                </td>
-            
+                lei
+            </td>
+
 
         </tr>
-        
+
 
     </table>
+
 </div>
 <br />
 @Html.ActionLink("Continua cumparaturie", "Index", "Products")
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Create" class="btn btn-default" />
-    </div>
-</div>
 <br />
 @Html.ActionLink("Fă comanda", "Create", "Commands")
 <script>
-    $(function () {
-        $.post('/Carts/Create', 
-            {id : @id , value : 'Test' }, function (data) 
-            {
-                alert("Success " + data.success);
-            });
-    });
+    $('.plus').click(function () {
+        this.parentNode.querySelector('input[type=number]').stepUp();
+          var quantity = $('#quantity').val();
+        var price = $('#productPrice').text();
+        var varSumID = $('#sumId').text();
+        console.log(varSumID)
+        $('#sum').text(quantity * price+" lei");
+       
+
+        
+        })
+
+    $('.minus').click(function () {
+        this.parentNode.querySelector('input[type=number]').stepDown();
+        var quantity = $('#quantity').val();
+        var price = $('#productPrice').text();
+        console.log(price)
+        $('#sum').text(quantity * price);
+        @*$('#sum').text(sum)
+         console.log($('#sum').text(@_Quantity ))*@
+
+        
+    })
 </script>

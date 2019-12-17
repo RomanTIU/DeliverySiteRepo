@@ -35,6 +35,7 @@ namespace DeliverySite.Models
         public Product Product { get; set; }
         public Status Status { get; set; }
 
+        public ICollection DeliveryMan { get; set; }
 
         public IEnumerator GetEnumerator()
         {

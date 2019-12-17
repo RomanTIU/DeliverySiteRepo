@@ -11,22 +11,25 @@
 
       
 
-<ul class="nav navbar-nav mr-auto navbar-expand-sm">
-    <li class="nav-item">
-        <a class="nav-link" href="http://localhost:63960/home/about">Salut @User.Identity.Name</a>
-    </li>
-    @if (User.IsInRole("Admin"))
-    {
+    <ul class="nav navbar-nav navbar-expand-sm mr-auto">
+        
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost:63960/products/create">Adauga produs</a></li>
-        <li class="nav-item">
-            <a class="nav-link" href="http://localhost:63960/home/about">Adauga producator</a></li>
-    }
+            <a class="nav-link" href="http://localhost:63960/manage/index">Salut @User.Identity.Name</a>
+        </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:63960/products/create">Adauga produs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:63960/manufacturers/create">Adauga producator</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
         </li>
 
-</ul>
+    </ul>
     }
 }
 else

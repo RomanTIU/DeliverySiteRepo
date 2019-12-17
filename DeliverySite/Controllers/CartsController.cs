@@ -16,33 +16,25 @@ namespace DeliverySite.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Carts
-        public ActionResult Index()
-        {
-            return View(db.Carts.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    return View(db.Carts.ToList());
+        //}
 
         // GET: Carts/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cart cart = db.Carts.Find(id);
-            if (cart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cart);
-        }
-
-        public ActionResult SubmitQuantity()
-        {
-            string Quantity = HttpContext.Request.Form["quantity"];
-            ViewData["quantity"] = Quantity;
-            return View("Create");
-        }
-
+        //public ActionResult Details(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Cart cart = db.Carts.Find(id);
+        //    if (cart == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(cart);
+        //}
 
         // GET: Carts/Create
         public ActionResult Create(int? id)
@@ -50,9 +42,7 @@ namespace DeliverySite.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-           
+            }           
             if (Session[strCart] == null)
             {
                 List<Cart> listCart = new List<Cart>
@@ -62,8 +52,7 @@ namespace DeliverySite.Controllers
                 Session[strCart] = listCart;
             }
             else
-            {
-                
+            {                
                 List<Cart> listCart = (List<Cart>)Session[strCart];
                 int check = IsExestCheck(id);
                 if (check == -1)
@@ -72,85 +61,81 @@ namespace DeliverySite.Controllers
                 }
                 else
                 {
-                  //  listCart[check].Quantity = Quantity;
+                    listCart[check].Quantity++;
                 }
-
                 Session[strCart] = listCart;
-            }
-            
+            }            
             return View();
         }
 
-        // POST: Carts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //POST: Carts/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Quantity,TotalPrice")] Cart cart,string input)
+        public ActionResult Create(Cart cart)
         {
-           
-            
-            if (ModelState.IsValid && !String.IsNullOrWhiteSpace(input))
+
+
+            if (ModelState.IsValid)
             {
-                
-                
-                cart.Id = Guid.NewGuid();
-                db.Carts.Add(cart);
-                db.SaveChanges();
+
+                List<Cart> listCart = (List<Cart>)Session[strCart];
+
                 return RedirectToAction("");
             }
-            
+
             return View();
         }
-        
+
 
 
 
         // GET: Carts/Edit/5
-        public ActionResult Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cart cart = db.Carts.Find(id);
-            if (cart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cart);
-        }
+        //public ActionResult Edit(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Cart cart = db.Carts.Find(id);
+        //    if (cart == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(cart);
+        //}
 
-        // POST: Carts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Quantity,TotalPrice")] Cart cart)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(cart).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(cart);
-        }
+        //// POST: Carts/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,Quantity,TotalPrice")] Cart cart)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(cart).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(cart);
+        //}
 
-        // GET: Carts/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cart cart = db.Carts.Find(id);
-            if (cart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cart);
-        }
+        //// GET: Carts/Delete/5
+        //public ActionResult Delete(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Cart cart = db.Carts.Find(id);
+        //    if (cart == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(cart);
+        //}
 
         // POST: Carts/Delete/5
         [HttpPost, ActionName("Delete")]

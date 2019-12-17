@@ -9,17 +9,28 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DeliverySite.Models;
 
-namespace DeliverySite.Controllers
+namespace DeliverySite.Controllers 
 {
     public class ProductsController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
+        
+        
+        
+              
 
         // GET: Products
         public ActionResult Index()
         {
             var products = _db.Products.Include(p => p.Manufacturer);
             return View(products.ToList());
+            
+            
+        }
+
+        public ActionResult Observer()
+        {
+            return View();
         }
 
         // GET: Products
@@ -187,7 +198,7 @@ namespace DeliverySite.Controllers
 
                 _db.Entry(product).State = EntityState.Modified;
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Observer");
             }
             ViewBag.ManufacturerID = new SelectList(_db.Manufacturers, "ID", "ManufacturerName", product.ManufacturerId);
             return View(product);
