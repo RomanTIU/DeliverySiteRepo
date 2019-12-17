@@ -20,8 +20,8 @@ namespace DeliverySite.Controllers
         {
             return View(db.Manufacturers.ToList());
         }
-
         // GET: Manufacturers/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,8 +35,8 @@ namespace DeliverySite.Controllers
             }
             return View(manufacturer);
         }
-
         // GET: Manufacturers/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(int? id)
         {
             var manufacturerCreate = new Manufacturer();
@@ -65,7 +65,7 @@ namespace DeliverySite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-       // [Authorize (Roles ="Admin")]
+        [Authorize (Roles ="Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ManufacturerName,AdressManufacturer,ContactNumberManufacurer,EmailManufacturer,ShereManufacturer")] Manufacturer manufacturer, HttpPostedFileBase imageUpload)
         {
@@ -95,6 +95,7 @@ namespace DeliverySite.Controllers
         }
 
         // GET: Manufacturers/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
 
@@ -133,6 +134,7 @@ namespace DeliverySite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ManufacturerName,AdressManufacturer,ContactNumberManufacurer,EmailManufacturer,ShereManufacturer,ImagePathLoggo")] Manufacturer manufacturer,HttpPostedFileBase imageUpload)
         {
@@ -164,6 +166,7 @@ namespace DeliverySite.Controllers
         }
 
         // GET: Manufacturers/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -181,6 +184,7 @@ namespace DeliverySite.Controllers
         // POST: Manufacturers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Manufacturer manufacturer = db.Manufacturers.Find(id);

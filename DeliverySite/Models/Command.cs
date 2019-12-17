@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Web;
 
 namespace DeliverySite.Models
 {
-    public class Command
+    public class Command : IEnumerable
     {
         [Key]
         public int Id { get; set; }
@@ -24,9 +25,6 @@ namespace DeliverySite.Models
         [DisplayName("Statutul produsului")]
         public int StatusId { get; set; }
 
-        [DisplayName("Livratorul")]
-        public int DeliveryManId { get; set; }
-
         [DisplayName("Suma spre achitare")]
         public int SumCommand { get; set; }
 
@@ -36,7 +34,12 @@ namespace DeliverySite.Models
         public Manufacturer Manufacturer { get; set; }
         public Product Product { get; set; }
         public Status Status { get; set; }
-        public DeliveryMan DeliveryMan { get; set; }
 
+        public ICollection DeliveryMan { get; set; }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

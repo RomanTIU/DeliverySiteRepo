@@ -17,7 +17,7 @@ namespace DeliverySite.Controllers
         // GET: Commands
         public ActionResult Index()
         {
-            var commands = db.Commands.Include(c=> c.Client).Include(c => c.DeliveryMan).Include(c => c.Manufacturer).Include(c => c.Product).Include(c => c.Status);
+            var commands = db.Commands.Include(c=> c.Client).Include(c => c.Manufacturer).Include(c => c.Product).Include(c => c.Status);
             return View(commands.ToList());
         }
 
@@ -61,7 +61,7 @@ namespace DeliverySite.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ClientId = new SelectList(db.Users, "Id", "UserName",command.ClientId);
-            ViewBag.DeliveryManId = new SelectList(db.DeliveryMen, "Id", "DeliveryManName", command.DeliveryManId);
+            
             ViewBag.ManufacturerId = new SelectList(db.Manufacturers, "Id", "ManufacturerName", command.ManufacturerId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "ProductName", command.ProductId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Id", command.StatusId);
@@ -81,7 +81,7 @@ namespace DeliverySite.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClientId = new SelectList(db.Users, "Id", "UserName",command.ClientId);
-            ViewBag.DeliveryManId = new SelectList(db.DeliveryMen, "Id", "DeliveryManName", command.DeliveryManId);
+            
             ViewBag.ManufacturerId = new SelectList(db.Manufacturers, "Id", "ManufacturerName", command.ManufacturerId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "ProductName", command.ProductId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Id", command.StatusId);
@@ -102,7 +102,7 @@ namespace DeliverySite.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ClientId = new SelectList(db.Users, "Id", "UserName", command.ClientId);
-            ViewBag.DeliveryManId = new SelectList(db.DeliveryMen, "Id", "DeliveryManName", command.DeliveryManId);
+            
             ViewBag.ManufacturerId = new SelectList(db.Manufacturers, "Id", "ManufacturerName", command.ManufacturerId);
             ViewBag.ProductId = new SelectList(db.Products, "Id", "ProductName", command.ProductId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Id", command.StatusId);

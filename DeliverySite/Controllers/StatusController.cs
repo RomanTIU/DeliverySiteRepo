@@ -19,6 +19,19 @@ namespace DeliverySite.Controllers
         {
             return View(db.Statuses.ToList());
         }
+        public ActionResult NextStatus(int? id)
+        {
+            Status status = db.Statuses.Find(id);
+            status.ColorStatus++;
+            return View(); 
+        }
+
+        public ActionResult PreviousStatus(int? id)
+        {
+            Status status = db.Statuses.Find(id);
+            status.ColorStatus--;
+            return View();
+        }
 
         // GET: Status/Details/5
         public ActionResult Details(int? id)

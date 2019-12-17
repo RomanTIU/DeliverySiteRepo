@@ -57,10 +57,10 @@ namespace DeliverySite.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Parola")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Reține?")]
         public bool RememberMe { get; set; }
     }
 

@@ -11,7 +11,6 @@ namespace DeliverySite.Models
     public class Product
     {
         [Key]
-        
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus numele produsului ")]

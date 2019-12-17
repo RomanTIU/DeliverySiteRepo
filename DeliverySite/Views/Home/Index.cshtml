@@ -1,65 +1,148 @@
-﻿@using System.Web.UI.WebControls
+﻿@using System.Web.Hosting
+@using System.Web.UI.WebControls
+@using DeliverySite.Models
+@model IEnumerable<DeliverySite.Models.Manufacturer>
 @{
     ViewBag.Title = "Home Page";
 
 }
-<style type="text/css">
-    .jumbotron {
-        background-color: aquamarine;
-        -moz-background-size: 100% 100%;    
+
+<style type="text/css"> 
+    .image-container {
+        background-image: url("img_nature.jpg"); /* The image used - important! */
+        background-size: cover; 
+        position: relative; /* Needed to position the cutout text in the middle of the image */
+        height: 300px; /* Some height */
     }
+
+    .text {
+        background-color: white;
+        color: black;
+        font-size: 10vw; /* Responsive font size */
+        font-weight: bold;
+        margin: 0 auto; /* Center the text container */
+        padding: 10px;
+        width: 50%;
+        text-align: center; /* Center text */
+        position: absolute; /* Position text */
+        top: 50%; /* Position text in the middle */
+        left: 50%; /* Position text in the middle */
+        transform: translate(-50%, -50%); /* Position text in the middle */
+        mix-blend-mode: screen; /* This makes the cutout text possible */
+    }
+    .jumbotron {
+        background-color:#8ee4af;
+        -moz-background-size: 100% 100%;
+    }
+
     .flex-item {
         justify-content: space-around;
     }
+   
+    .container1 {
+        position: relative;
+        width: 50%;
+    }
+    .text-block {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background-color: black;
+        color: white;
+        padding-left: 20px;
+        padding-right: 20px;
+        
+    }
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .container:hover .image {
+        opacity: 0.3;
+    }
+
+    .container:hover .middle {
+        opacity: 1;
+    }
+
+    .text {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        padding: 16px 32px;
+    }
+    .divider{
+        width:160px;
+        height:auto;
+        display:inline-block;
+    }
+    .image {
+        border-radius: 4px;
+    }
 </style>
 
-<div class="container">
-    <div class="jumbotron">
-
-        <h1>Producatori</h1>
-        <p class="lead"></p>
-        <div style="display: flex" class="flex-item">
-            <div style="display: block">
-                <img src="~/Content/Manufacturers/torro.png" alt="" width="200" height="200" />
-                <p><a href="https://asp.net" class="btn btn-primary btn-lg">Spre bine &raquo;</a></p>
-            </div>
-            <div style="display: block">
-                <img src="~/Content/Manufacturers/torro.png" alt="" width="200" height="200" />
-                <p><a href="http://localhost:63960/Manufacturers/Index" class="btn btn-primary btn-lg">Spre bine &raquo;</a></p>
-            </div>
-            <div style="display: block">
-                <img src="~/Content/Manufacturers/torro.png" alt="" width="200" height="200" />
-                <p><a href="http://localhost:63960/Manufacturers/Index" class="btn btn-primary btn-lg">Spre bine &raquo;</a></p>
-            </div>
-            <div style="display: block">
-                <img src="~/Content/Manufacturers/torro.png" alt="" width="200" height="200" />
-                <p><a href="http://localhost:63960/Manufacturers/Index" class="btn btn-primary btn-lg">Spre bine &raquo;</a></p>
-            </div>
-
+<div class=" jumbotron">
+  <div class="card-group">
+    <div class="card" style="width: 18rem">
+        <img class="card-img-top" src="@Url.Content("~/Content/producatori.jpg")"  alt="Card image cap" width="300" height="300">
+        <div class="middle">
+            <a href="http://localhost:63960/Manufacturers/index" class="btn btn-primary">Vezi toți producătorii</a>
         </div>
-        <h3>Nu știi cine, dar știi ce? Alege din categorii!</h3>
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Spre Pizza</h2>
-                <p>
-                    <span style="color:crimson"> Cine nu ar savura o pizza caldă acasă? Dacă ești dintre persoanele acestea fă click pe butonul de mai jos!</span>
-                </p>
-                <p><a class="btn btn-default" href="http://localhost:63960/Products/Pizza">Meniu Pizza &raquo;</a></p>
+    </div>
+
+    
+
+    <div class="divider"></div>
+    
+    <div class="card" style="width: 18rem">
+
+        <img class="card-img-top" src="@Url.Content("~/Content/All.jpg")" alt="Card image cap" width="300" height="300">
+        <div class="middle">
+            <a href="http://localhost:63960/products/index" class="btn btn-primary">Vezi toate produsele</a>
+        </div>
+    </div>
+  </div>
+
+    
+
+    <div class="card-header" >
+        <center>  <h3 style="color: brown">Nu știi cine, dar știi ce? Alege din categorii!</h3></center>
+    </div>
+    <div class="row">
+        <div class="col-md-5" >
+            <div class="image-container">
+                <img src="~/Content/Image/pizza-menu.jpg" style="width: 400px; height: 300px;border-radius: 4px" />
+                <div class="text">
+                    <a href="http://localhost:63960/products/pizza" style="color:white">Meniu Pizza</a>
+                </div>
+                
             </div>
-            <div class="col-md-4">
-                <h2>Spre Burghere</h2>
-                <p>
-                    <span style="color: blueviolet">Dorești să guști dintre cele mai bune burghere din Molodova? Atunci apasă butonul!</span>
-                </p>
-                <p><a class="btn btn-default" href="http://localhost:63960/products/Burghers">Meniul burghere &raquo;</a></p>
+        </div>
+        <div class="col-md-5 ml-auto">
+            <div class="image-container">
+                <img src="~/Content/Image/burghers-menu.jpg" style="width: 418px; height: 300px;border-radius: 4px"/>
+                <div class="text">
+                    <a href="http://localhost:63960/products/burghers" style="color: white">Meniu Burghere</a>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h2>Spre Sushi</h2>
-                <p>
-                    <span style="color:dodgerblue">Poti foarte ușor să găsești produsul dorit di lista noastră de produse sushi</span>
-                </p>
-                <p><a class="btn btn-default" href="http://localhost:63960/products/Shushi">Meniul Sushi &raquo;</a></p>
+        </div>
+        <row/>
+        <br/>
+        <div class="col-md-12 offset-md-8">
+            <div class="image-container">
+                <img src="~/Content/Image/sushi-menu.jpg" style="width: 430px; height: 300px;border-radius: 4px" />
+                <div class="text">
+                    <a href="http://localhost:63960/products/shushi" style="color:white">Meniu Sushi</a>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>

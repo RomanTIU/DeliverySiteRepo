@@ -8,88 +8,124 @@
 <style type="text/css">
     img {
         border-radius: 4px;
-
     }
+
     .quantity {
-        display: inline-block; }
-    
-     
+        display: inline-block;
+    }
 </style>
-<div class="panel panel-default">
-    <div class="panel-heading">Coșul</div>
-    
 
-<table class="table">
-    <tr>
-        <th style="opacity:0">
-            Imaginea
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            Prețul
-        </th>
-        <th>
-            Cantitatea
-        </th>
-        <th>
-            Suma totala
-        </th>
 
-    </tr>
-    @foreach (var cart in (List<Cart>)Session["Cart"])
-    {
+<div class="card-header">
+    Coșul
+
+    <table class="table">
         <tr>
-            <td>
-                <img src="@Url.Content("~/Content/Image/"+cart.Product.ImagePath)" width="50" height="50"class="img-circle" />
-            </td>
-            <td>
-                <div class="Align">
-                    @cart.Product.ProductName
-                </div>
-            </td>
-            <td>
-                @cart.Product.Price
-            </td>
-            <td>
-                <div class="def-number-input number-input">
-                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                    
-                    <input class="quantity" min="0" name="quantity" value="@cart.Quantity" type="number">
-                    
-                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </div>
+            <th style="opacity:0">
+                Imaginea
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                Prețul
+            </th>
+            <th>
+                Cantitatea
+            </th>
+            <th>
+                Suma totala
+            </th>
 
-            </td>
+        </tr>
+        @foreach (var cart in (List<Cart>)Session["Cart"])
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content("~/Content/Image/"+cart.Product.ImagePath)" width="50" height="50" class="rounded" />
+                </td>
+                <td>
+                   
+                        @cart.Product.ProductName
+                   
+                </td>
+                <td>
+                    @cart.Product.Price
+                </td>
+                <td>
+                    <div class="def-number-input number-input">
+                        <button id="QuantityMinus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+
+                        <input class="quantity" min="0" name="quantity" value="@cart.Quantity" type="number">
+                        <input  id="SubmitInput" class="btn btn-primary" type="submit" value="Submit">
+
+
+                        <button id="QuantityPlus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+
+                </td>
+                <td>
+                    @(cart.TotalPrice = cart.Product.Price * cart.Quantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Sterge", "Delete", "ShippingCart", new {id = cart.Product.Id},
+                        new {onclick = "return confirm('Esti sigur in asta')"})
+                </td>
+
+            </tr>
+
+        }
+        <tr>
+            <td colspan="3">Spre achitare</td>
             <td>
-                @(cart.TotalPrice = cart.Product.Price * cart.Quantity)
-            </td>
-            <td>
-                @Html.ActionLink("Sterge", "Delete", "ShippingCart", new {id = cart.Product.Id},
-                    new {onclick = "return confirm('Esti sigur in asta')"})
+                @{
+                    List<Cart> temp = (List<Cart>)Session["Cart"];
+                    var total = temp.Sum(x => x.Quantity * x.Product.Price);
+                    @total
+                }
             </td>
 
         </tr>
 
-    }
-    <tr>
-        <td colspan="3">Spre achitare</td>
-        <td>
-            @{
-                List<Cart> temp = (List<Cart>)Session["Cart"];
-                var total = temp.Sum(x => x.Quantity * x.Product.Price);
-                @total
-            }
-        </td>
-
-    </tr>
-
-</table>
+    </table>
 </div>
-    <br />
-    @Html.ActionLink("Continua cumparaturie", "Index", "Products")
+<br />
+@Html.ActionLink("Continua cumparaturie", "Index", "Products")
+
+<br />
+@Html.ActionLink("Fă comanda", "Create", "Commands")
+
+
+@*@section Scripts
+{
+    <script type="text/javascript">
+
+        $(function() {
+            LoadData();
+            $("#SubmitInput").click(function() {
+                //alert("");
+                var cart = {};
+                cart.Quantity = $("#quantity").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateInputCart")',
+                    data: '{cart: ' + JSON.stringify(cart) + '}',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function() {
+                        // alert("Data has been added successfully.");
+                        LoadData();
+                    },
+                    error: function() {
+                        alert("Error while inserting data");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}*@

@@ -6,65 +6,90 @@
 
     ViewBag.Title = "Produse";
 }
-
-<h2>Prudsele</h2>
-
-<p>
-    @Html.ActionLink("Adauga produs", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Manufacturer.ManufacturerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeToReady)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            @if (item.Manufacturer.ShereManufacturer == (Sphere)0)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manufacturer.ManufacturerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TimeToReady)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    <img src="~/Content/Image/@item.ImagePath" alt="@item.Title" width="50" height="50" />
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            }
-        </tr>
+<style type="text/css">
+    img {
+        border-radius: 25px;
     }
 
-</table>
+    .flip-box {
+        border-color: aqua;
+        border-radius: 25px;
+        background-color: transparent;
+        width: 300px;
+        height: 200px;
+        border: 1px solid #f1f1f1;
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    }
+
+    /* This container is needed to position the front and back side */
+    .flip-box-inner {
+        border-color: aqua;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    /* Do an horizontal flip when you move the mouse over the flip box container */
+    .flip-box:hover .flip-box-inner {
+        border-color: aqua;
+        transform: rotateY(180deg);
+    }
+
+    /* Position the front and back side */
+    .flip-box-front, .flip-box-back {
+        border-color: aqua;
+        border-radius: 25px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+    }
+
+    /* Style the front side (fallback if image is missing) */
+    .flip-box-front {
+        border-color: aqua;
+        border-radius: 25px;
+        background-color: #bbb;
+        color: black;
+    }
+
+    /* Style the back side */
+    .flip-box-back {
+        border-color: aqua;
+        border-radius: 25px;
+        background-color: coral;
+        color: white;
+        transform: rotateY(180deg);
+    }
+</style>
+
+<h2>Produsele</h2>
+
+<div class="card-group" >
+    @foreach (var item in Model)
+    {
+        if (item.Manufacturer.ShereManufacturer == 0)
+        {
+            <div class="flip-box" style="border: aqua">
+                <div class="flip-box-inner">
+                    <div class="flip-box-front">
+                        <img src="@Url.Content("~/Content/Image/" + item.ImagePath)" width="300" height="200">
+                    </div>
+                    <div class="flip-box-back" style="">
+                        <h4 class="card-title">@item.ProductName</h4>
+                        <p class="card-text">
+                            <h5 style="text-decoration-color: aquamarine">Timpul pentru pregatire @item.TimeToReady minute</h5>
+                            <h5>Pretul @item.Price lei</h5>
+                        </p>
+                        <a href="http://localhost:63960/Carts/Create/@item.Id" class="btn btn-primary">Adauga in cos</a>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        }
+    }
+
+</div>
