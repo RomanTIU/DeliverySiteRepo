@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DeliverySite.Models;
+
 
 namespace DeliverySite.Controllers
 {
@@ -17,15 +20,28 @@ namespace DeliverySite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,ApplicationRoleManager roleManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
+        }
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
         }
 
         public ApplicationSignInManager SignInManager
@@ -51,7 +67,6 @@ namespace DeliverySite.Controllers
                 _userManager = value;
             }
         }
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -75,7 +90,7 @@ namespace DeliverySite.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,6 +154,12 @@ namespace DeliverySite.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //List<SelectListItem> list = new List<SelectListItem>();
+            //foreach (var role in RoleManager.Roles)
+            
+            //    list.Add(new SelectListItem(){Value= role.Name,Text = role.Name});
+            //ViewBag.Roles = list;
+            
             return View();
         }
 
@@ -151,10 +172,11 @@ namespace DeliverySite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -481,5 +503,120 @@ namespace DeliverySite.Controllers
             }
         }
         #endregion
+
+        //Get RoleToUser
+        //
+        [HttpGet]
+        public ActionResult RoleAddToUser()
+        {
+            AssignRolesToUser objvm = new AssignRolesToUser();
+            objvm.RolesList = GetAll_Roles();
+            objvm.Userlist = GetAll_Users();
+            return View(objvm);
+        }
+
+        public List<SelectListItem> GetAll_Roles()
+        {
+            List<SelectListItem> listrole = new List<SelectListItem>();
+            listrole.Add(new SelectListItem { Text = "select", Value = "0" });
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                foreach (var item in db.Roles)
+                {
+                    listrole.Add(new SelectListItem { Text = item.Name, Value = item.Name });
+                }
+            }
+            return listrole;
+        }
+
+        public List<SelectListItem> GetAll_Users()
+        {
+            List<SelectListItem> listuser = new List<SelectListItem>();
+            listuser.Add(new SelectListItem { Text = "Select", Value = "0" });
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                foreach (var item in db.Users)
+                {
+                    listuser.Add(new SelectListItem { Text = item.UserName, Value = item.UserName });
+                }
+            }
+            return listuser;
+        }
+
+
+        //Post RoleToUSer
+        //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RoleAddToUser(AssignRolesToUser objvm)
+        {
+            if (objvm.RoleName == "0")
+            {
+                ModelState.AddModelError("RoleName", "Please select RoleName");
+            }
+
+            if (objvm.UserId == "0")
+            {
+                ModelState.AddModelError("UserName", "Please select Username");
+
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (Get_CheckUserRoles(objvm.UserId) == true)
+                {
+                    ViewBag.ResultMessage = "This user already has the role specified !";
+                }
+                else
+                {
+                    var userName = GetUserName_BY_UserID(objvm.UserId);
+                    Roles.AddUserToRole(userName,objvm.RoleName);
+                    ViewBag.ResultMessage = "Username added to the role successfully !";
+                }
+                objvm.RolesList = GetAll_Roles();
+                objvm.Userlist = GetAll_Users();
+                return View(objvm);
+            }
+            else
+            {
+                objvm.RolesList = GetAll_Roles();
+                objvm.Userlist = GetAll_Users();
+            }
+            return View(objvm);
+        }
+        public bool Get_CheckUserRoles(string UserId)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var data = (from WR in context.Users
+                            join R in context.Roles on WR.Id equals R.Id
+                            where WR.Id == UserId
+                            orderby R.Id
+                            select new
+                            {
+                                WR.Id
+                            }).Count();
+
+                if (data > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public string GetUserName_BY_UserID(string UserId)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var UserName = (from UP in context.Users
+                                where UP.UserName == UserId
+                                select UP.UserName).SingleOrDefault();
+                return UserName;
+            }
+        }
     }
 }

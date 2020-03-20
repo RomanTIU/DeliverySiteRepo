@@ -25,15 +25,8 @@ namespace DeliverySite.Models
         [DisplayName("Adresa postala")]
         public string EmailDeliveryMan { get; set; }
 
-        [DisplayName("Numarul comenzii")]
-        public int CommandId { get; set; }
+        public string ComandId { get; set; }
         
-        
-
-        
-
         public Command Command { get; set; }
-
-
     }
 }

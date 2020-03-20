@@ -3,61 +3,82 @@
 @{
     ViewBag.Title = "Index";
 }
+<style>
+    img {
+        border: 1px solid #ddd; /* Gray border */
+        border-radius: 4px; /* Rounded border */
+        padding: 5px; /* Some padding */
+        width: 100px; /* Set a small width */
+    }
+
+        /* Add a hover effect (blue shadow) */
+        img:hover {
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+
+    .bg-image {
+        /* The image used */
+        /* Add the blur effect */
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* Position text in the middle of the page/image */
+    .bg-text {
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+        color: white;
+        font-weight: bold;
+        border: 3px solid #f1f1f1;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 80%;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ManufacturerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdressManufacturer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactNumberManufacurer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailManufacturer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShereManufacturer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePathLoggo)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ManufacturerName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdressManufacturer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactNumberManufacurer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailManufacturer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShereManufacturer)
-        </td>
-        <td>
-            <img src="~/Content/Manufacturers/@item.ImagePathLoggo" width="50" height="50" />
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
+    <div class="card-group">
+        @foreach (var item in Model)
+        {
 
-</table>
+            <div class="col-sm-6 col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="@Url.Content("~/Content/Manufacturers/" + item.ImagePathLoggo)" alt="Card image cap" width="100">
+                    <div class="card-body">
+                        <div class="bg-text">
+                            <h1>@item.ManufacturerName</h1>
+                        </div>
+                        <p class="card-text">
+                            <h4>
+                                Adresa producatorului @item.AdressManufacturer
+                            </h4>
+                        </p>
+                        <a href="http://localhost:63960" class="btn btn-primary">Produsele</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        }
+    </div>
+
+

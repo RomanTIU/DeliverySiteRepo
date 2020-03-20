@@ -1,13 +1,13 @@
 ﻿@model DeliverySite.Models.Manufacturer
 
 @{
-    ViewBag.Title = "Editare";
+    ViewBag.Title = "Editează";
 }
 
 <h2>Editează</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Manufacturers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     
@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ImagePathLoggo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <img src="~/Content/Manufacturers/@Model.ImagePathLoggo" width="50" height="50"/>
+                <input type="file" name="imageUpload" id="imageUpload"/>
             </div>
         </div>
 

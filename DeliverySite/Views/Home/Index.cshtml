@@ -1,31 +1,148 @@
-﻿@{
+﻿@using System.Web.Hosting
+@using System.Web.UI.WebControls
+@using DeliverySite.Models
+@model IEnumerable<DeliverySite.Models.Manufacturer>
+@{
     ViewBag.Title = "Home Page";
+
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<style type="text/css"> 
+    .image-container {
+        background-image: url("img_nature.jpg"); /* The image used - important! */
+        background-size: cover; 
+        position: relative; /* Needed to position the cutout text in the middle of the image */
+        height: 300px; /* Some height */
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    .text {
+        background-color: white;
+        color: black;
+        font-size: 10vw; /* Responsive font size */
+        font-weight: bold;
+        margin: 0 auto; /* Center the text container */
+        padding: 10px;
+        width: 50%;
+        text-align: center; /* Center text */
+        position: absolute; /* Position text */
+        top: 50%; /* Position text in the middle */
+        left: 50%; /* Position text in the middle */
+        transform: translate(-50%, -50%); /* Position text in the middle */
+        mix-blend-mode: screen; /* This makes the cutout text possible */
+    }
+    .jumbotron {
+        background-color:#8ee4af;
+        -moz-background-size: 100% 100%;
+    }
+
+    .flex-item {
+        justify-content: space-around;
+    }
+   
+    .container1 {
+        position: relative;
+        width: 50%;
+    }
+    .text-block {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background-color: black;
+        color: white;
+        padding-left: 20px;
+        padding-right: 20px;
+        
+    }
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .container:hover .image {
+        opacity: 0.3;
+    }
+
+    .container:hover .middle {
+        opacity: 1;
+    }
+
+    .text {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        padding: 16px 32px;
+    }
+    .divider{
+        width:160px;
+        height:auto;
+        display:inline-block;
+    }
+    .image {
+        border-radius: 4px;
+    }
+</style>
+
+<div class=" jumbotron">
+  <div class="card-group">
+    <div class="card" style="width: 18rem">
+        <img class="card-img-top" src="@Url.Content("~/Content/producatori.jpg")"  alt="Card image cap" width="300" height="300">
+        <div class="middle">
+            <a href="http://localhost:63960/Manufacturers/index" class="btn btn-primary">Vezi toți producătorii</a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    
+
+    <div class="divider"></div>
+    
+    <div class="card" style="width: 18rem">
+
+        <img class="card-img-top" src="@Url.Content("~/Content/All.jpg")" alt="Card image cap" width="300" height="300">
+        <div class="middle">
+            <a href="http://localhost:63960/products/index" class="btn btn-primary">Vezi toate produsele</a>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+  </div>
+
+    
+
+    <div class="card-header" >
+        <center>  <h3 style="color: brown">Nu știi cine, dar știi ce? Alege din categorii!</h3></center>
     </div>
+    <div class="row">
+        <div class="col-md-5" >
+            <div class="image-container">
+                <img src="~/Content/Image/pizza-menu.jpg" style="width: 400px; height: 300px;border-radius: 4px" />
+                <div class="text">
+                    <a href="http://localhost:63960/products/pizza" style="color:white">Meniu Pizza</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md-5 ml-auto">
+            <div class="image-container">
+                <img src="~/Content/Image/burghers-menu.jpg" style="width: 418px; height: 300px;border-radius: 4px"/>
+                <div class="text">
+                    <a href="http://localhost:63960/products/burghers" style="color: white">Meniu Burghere</a>
+                </div>
+            </div>
+        </div>
+        <row/>
+        <br/>
+        <div class="col-md-12 offset-md-8">
+            <div class="image-container">
+                <img src="~/Content/Image/sushi-menu.jpg" style="width: 430px; height: 300px;border-radius: 4px" />
+                <div class="text">
+                    <a href="http://localhost:63960/products/shushi" style="color:white">Meniu Sushi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>

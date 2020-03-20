@@ -15,7 +15,7 @@ namespace DeliverySite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        
         public ManageController()
         {
         }
@@ -344,6 +344,8 @@ namespace DeliverySite.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+      
 
         private void AddErrors(IdentityResult result)
         {

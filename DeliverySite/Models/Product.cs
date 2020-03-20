@@ -11,13 +11,10 @@ namespace DeliverySite.Models
     public class Product
     {
         [Key]
-        
         public int Id { get; set; }
 
-       
-
         [Required(ErrorMessage = "Nu ati introdus numele produsului ")]
-        [DisplayName ("Denumirea produsului")]
+        [DisplayName ("Produsul")]
         public string ProductName { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus timpul de pregatire")]
@@ -27,10 +24,6 @@ namespace DeliverySite.Models
         [Required(ErrorMessage = "Nu ati introdus pretul")]
         [DisplayName("Pretul produsului in lei")]
         public int Price { get; set; }
-
-        [Required(ErrorMessage = "Nu ati introdus denumirea pozei")]
-        [DisplayName("Titlul imaginei")]
-        public string Title { get; set; }
 
         [DisplayName("Imaginea")]
         public string ImagePath { get; set; }

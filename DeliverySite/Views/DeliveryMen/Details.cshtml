@@ -1,0 +1,50 @@
+﻿@model DeliverySite.Models.DeliveryMan
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DeliveryMan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryManName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryManName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactNumberDeliveryMan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactNumberDeliveryMan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailDeliveryMan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailDeliveryMan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommandId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommandId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

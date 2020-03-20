@@ -14,19 +14,19 @@ namespace DeliverySite.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus denumirea producatorului")]
-        [DisplayName("Numele producatorului")]
+        [DisplayName("Denumirea")]
         public string ManufacturerName{ get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus adresa")]
-        [DisplayName("Adresa producatorului")]
+        [DisplayName("Adresa")]
         public string AdressManufacturer { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus numarul de contact")]
-        [DisplayName("Numarul de contact al producatorului")]
+        [DisplayName("Numarul de contact")]
         public int ContactNumberManufacurer { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus emailu")]
-        [DisplayName("Adresa postala a producatorului")]
+        [DisplayName("Adresa postala")]
         public string EmailManufacturer { get; set; }
 
         [Required(ErrorMessage = "Nu ati introdus domeniul")]

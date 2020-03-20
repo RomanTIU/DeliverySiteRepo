@@ -1,0 +1,145 @@
+﻿@using DeliverySite.Controllers
+@using DeliverySite.Models
+@model IEnumerable<DeliverySite.Models.Product>
+
+@{
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    ViewBag.Title = "Index";
+    int _Quantity = 0;
+    int id = 0;
+    int totalPrice = 0;
+    string SumId = "";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<style type="text/css">
+    img {
+        border-radius: 4px;
+    }
+
+    .quantity {
+        display: inline-block;
+    }
+
+    .divider {
+        width: 5px;
+        height: auto;
+        display: inline-block;
+    }
+</style>
+<div class="card-header">
+    <div class="card-header">Coșul</div>
+    <table class="table">
+        <tr>
+            <th style="opacity:0">
+                Imaginea
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                Prețul
+            </th>
+            <th>
+                Cantitatea
+            </th>
+            <th>
+                Suma totala
+            </th>
+
+        </tr>
+        @foreach (var cart in (List<Cart>)Session["Cart"])
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content("~/Content/Image/" + cart.Product.ImagePath)" width="50" height="50" style="border-radius: 50%" />
+                </td>
+                <td>
+
+                    @cart.Product.ProductName
+
+                </td>
+                <td>
+                    <div id="productPrice">
+                        @cart.Product.Price
+                    </div>lei
+                </td>
+                <td>
+                    <div>
+                        <button  class="minus" id="minus" style="border-radius: 8px; background-color: azure">
+                            <img src="~/Content/Buttons/minus.png" width="10" height="10">
+                        </button>
+
+
+                        <input class="quantity" id="quantity" min="0" name="quantity" value="@cart.Quantity" type="number" style="width: 50px">
+
+                        <button class="plus" id="plus" style="border-radius: 8px;background-color: azure">
+                            <img src="~/Content/Buttons/plus.png" width="10" height="10">
+                        </button>
+                        @{_Quantity = cart.Quantity; id = cart.Product.Id;}
+
+                        <div class="divider"></div>
+                        <button style="width: 30px; height: 30px;align-content: center">
+                            <img src="~/Content/Buttons/Confirm.png" width="20" height="20" />
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <div id="sum"> @(cart.Product.Price * _Quantity) lei</div>
+
+                   
+
+                    <button type="button" class="close" aria-label="Close">
+                        <a href="http://localhost:63960/Carts/Deletecart/@cart.Product.Id" aria-hidden="true">&times;</a>
+                    </button>
+                </td>
+
+            </tr>
+
+                            }
+        <tr>
+            <td colspan="3">Spre achitare</td>
+            <td>
+                @{
+                    List<Cart> temp = (List<Cart>)Session["Cart"];
+                    var total = temp.Sum(x => x.Quantity * x.Product.Price);
+                    @total
+                }
+                lei
+            </td>
+
+
+        </tr>
+
+
+    </table>
+
+</div>
+<br />
+@Html.ActionLink("Continua cumparaturie", "Index", "Products")
+<br />
+@Html.ActionLink("Fă comanda", "Create", "Commands")
+<script>
+    $('.plus').click(function () {
+        this.parentNode.querySelector('input[type=number]').stepUp();
+          var quantity = $('#quantity').val();
+        var price = $('#productPrice').text();
+        var varSumID = $('#sumId').text();
+        console.log(varSumID)
+        $('#sum').text(quantity * price+" lei");
+       
+
+        
+        })
+
+    $('.minus').click(function () {
+        this.parentNode.querySelector('input[type=number]').stepDown();
+        var quantity = $('#quantity').val();
+        var price = $('#productPrice').text();
+        console.log(price)
+        $('#sum').text(quantity * price);
+        @*$('#sum').text(sum)
+         console.log($('#sum').text(@_Quantity ))*@
+
+        
+    })
+</script>
